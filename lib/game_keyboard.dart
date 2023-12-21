@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'game_board.dart';
 import 'game_provider.dart';
 
@@ -21,7 +23,7 @@ class _GameKeyboardState extends State<GameKeyboard> {
 
       children: [
         Text(WordleGame.game_message,style: TextStyle(
-          color: Colors.red,
+          color: Colors.white,
         )),
         SizedBox(height: 20.0,),
         GameBoard(widget.game),
@@ -32,10 +34,10 @@ class _GameKeyboardState extends State<GameKeyboard> {
           children: row1.map((e){
             return InkWell(
               onTap: (){
-                print(e);
+
                 if(widget.game.letterId < 5){
                   setState(() {
-                    widget.game.insertWord(widget.game.letterId, Letter(e,0));
+                    widget.game.insetWord(widget.game.letterId, Letter(e,0));
                     widget.game.letterId++;
                   });
                 }
@@ -63,10 +65,10 @@ class _GameKeyboardState extends State<GameKeyboard> {
           children: row2.map((e){
             return InkWell(
               onTap: (){
-                print(e);
+
                 if(widget.game.letterId < 5){
                   setState(() {
-                    widget.game.insertWord(widget.game.letterId, Letter(e,0));
+                    widget.game.insetWord(widget.game.letterId, Letter(e,0));
                     widget.game.letterId++;
                   });
                 }
@@ -93,12 +95,12 @@ class _GameKeyboardState extends State<GameKeyboard> {
           children: row3.map((e){
             return InkWell(
               onTap: (){
-                print(e);
+
 
                 if(e == "DEL"){
                   if(widget.game.letterId > 0){
                     setState(() {
-                      widget.game.insertWord(widget.game.letterId - 1,Letter("",0));
+                      widget.game.insetWord(widget.game.letterId - 1,Letter("",0));
                       widget.game.letterId--;
                     });
                   }
@@ -109,6 +111,7 @@ class _GameKeyboardState extends State<GameKeyboard> {
                       if(widget.game.checkWordExist(guess)){
                         if(guess==WordleGame.game_guess){
                           setState(() {
+
                             WordleGame.game_message = "You Won, Congrats!!";
                             widget.game.wordleBoard[widget.game.rowId].forEach((element) {
                               element.code = 1;
@@ -129,23 +132,25 @@ class _GameKeyboardState extends State<GameKeyboard> {
                                   widget.game.wordleBoard[widget.game.rowId][i].code=2;
                                 });
                               }
+                              WordleGame.game_message = "";
                             }
                           }
                           widget.game.rowId++;
                           widget.game.letterId =0;
+
                         }
 
                       }else
                       {
-
                         WordleGame.game_message = "Word not recognized";
+
                       }
                     });
                   }
                 }else{
                   if(widget.game.letterId < 5){
                     setState(() {
-                      widget.game.insertWord(widget.game.letterId, Letter(e,0));
+                      widget.game.insetWord(widget.game.letterId, Letter(e,0));
                       widget.game.letterId++;
                     });
                   }
@@ -171,4 +176,10 @@ class _GameKeyboardState extends State<GameKeyboard> {
       ],
     );
   }
+
+
+
+
+
+
 }

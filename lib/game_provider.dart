@@ -5,10 +5,12 @@ class WordleGame{
   int letterId =0 ;
   static   String game_message = "";
   static   String game_guess = "";
-  static   List<String> word_list = ["WORLD","FIGHT","BRAIN","PLANT","EARTH","ROBOT"];
+  static   List<String> word_list =
+  ["WORLD","FIGHT","BRAIN","PLANT","EARTH","READY","EAGLE","ANKLE","DRINK","FIELD","GIANT","DRIVE","GLASS", "ABOVE" ,
+    "ABUSE" , "ACTOR", "ADAPT" , "ADMIT" , "ADOBE"];
   static bool gameOver =false;
 
-  static List<Letter> wordleRow = List.generate(5, (index) => Letter("",0));
+  static List<Letter> worldRow = List.generate(5, (index) => Letter("",0));
 
 
   List<List<Letter>> wordleBoard =List.generate(5, (index) => List.generate(5,((index) => Letter("",0))));
@@ -21,7 +23,7 @@ class WordleGame{
 
   }
 
-  void insertWord(index,word){
+  void insetWord(index,word){
     wordleBoard[rowId][index]= word;
 
   }
